@@ -1,0 +1,120 @@
+<div class="container-fluid p-5">
+  <div class="row">
+      <div class="col d-flex justify-content-center">
+          <div class="card w-50 p-3 ">
+              <h2 class="text-center mb-3">Register here...!</h2>
+              <form class="form-group" [formGroup]="form">
+                  <div class="mb-3">
+                      <label for="name" class="form-label">Name: <span class="text-danger">*</span> </label>
+                      <input type="text" class="form-control" formControlName="name" name="name" id="name">
+                      <div *ngIf="fname?.invalid && (fname?.dirty || fname?.touched)" class="text-danger">
+                          <span *ngIf="form.hasError('required', 'name')">
+                            * Please enter firstname.
+                          </span>
+                          <span *ngIf="form.hasError('minlength', 'name')">
+                            * Firstname must be at least 5 characters long.
+                          </span>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="mb-3">
+                      <label for="password">Password: <span class="text-danger">*</span></label>
+                      <input type="password" formControlName="password" name="password" class="form-control" name="password">
+                      <div *ngIf="pwd?.invalid && (pwd?.dirty || pwd?.touched)" class="text-danger">
+                        <span *ngIf="pwd?.errors['required']">
+                          * Please enter a password
+                        </span>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label>Confirm Password: <span class="text-danger">*</span></label>
+                      <input type="password" formControlName="confirmPassword" class="form-control">
+                      <div *ngIf="cpwd?.invalid && (cpwd?.dirty || cpwd?.touched)" class="text-danger">
+                        <span *ngIf="cpwd?.errors['required']">
+                          * Please enter confirm password
+                        </span>
+                        <span *ngIf="cpwd?.errors['matching']">
+                          * Password does not match
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="email" class="form-label">Email: <span class="text-danger">*</span></label>
+                      <input type="email" class="form-control" formControlName="email" name="email" id="email">
+                      <div *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)" class="text-danger">
+                          <span *ngIf="form.hasError('required', 'email')">
+                            * Email is required.
+                          </span>
+                          <span *ngIf="
+                                      form.hasError('email', 'email') &&
+                                      form.hasError('pattern', 'email')
+                                  ">
+                            * Enter a valid email.
+                          </span>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="mobile" class="form-label">Mobile: <span class="text-danger">*</span></label>
+                      <input type="number" class="form-control" formControlName="mobile" name="mobile" id="mobile">
+                      <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="text-danger">
+                          <span *ngIf="form.hasError('required', 'mobile')">
+                            * Please enter mobile no.
+                          </span>
+                          <span *ngIf="form.hasError('pattern', 'mobile')">
+                            * Mobile no must be a length of 10 digit.
+                          </span>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="dob" class="form-label">Date of Birth: <span class="text-danger">*</span></label>
+                      <input type="date" class="form-control" formControlName="dob" name="dob" id="dob">
+                      <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="text-danger">
+                          <span *ngIf="form.hasError('required', 'dob')">
+                            * Please select date of birth.
+                          </span>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="gender" class="form-label">Gender: <span class="text-danger">*</span> &nbsp;</label>
+                      <input type="radio" formControlName="gender" name="gender" id="male" value="Male"> Male
+                      <input type="radio" formControlName="gender" name="gender" id="female" value="Female"> Female
+                      <input type="radio" formControlName="gender" name="gender" id="others" value="Others"> Others
+                  </div>
+                  <div class="mb-3">
+                      <label for="status" class="form-label">Marital Status: &nbsp;</label>
+                      <select name="status" id="status" formControlName="status">
+                          <option *ngFor="let statusData of maritalData" [value]="statusData.value">{{ statusData.name }}</option>
+                      </select>
+                      <div *ngIf="mstat?.invalid && (mstat?.dirty || mstat?.touched)" class="text-danger">
+                          <span *ngIf="form.hasError('required', 'status')">
+                            * Please select a status.
+                          </span>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="address" class="form-label">Address:</label>
+                      <textarea name="address" id="address" class="form-control" formControlName="address" ></textarea>
+                      <div *ngIf="add?.invalid && (add?.dirty || add?.touched)" class="text-danger">
+                          <span *ngIf="form.hasError('required', 'address')">
+                            * Please enter your address.
+                          </span>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                      <input type="checkbox" name="terms" id="terms" formControlName="agree">&nbsp;
+                      <label for="terms">I Agree to the Terms & Conditions...  <span class="text-danger">*</span></label>
+                  </div>
+                  <div class="mb-3">
+                      <button type="submit" *ngIf="!save" [disabled]="form.invalid"  class="btn btn-primary w-100" (click)="onSubmit()">Register</button>
+                      <button type="submit" *ngIf="save"   class="btn btn-primary w-100" (click)="onSave(id)">Save</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="show">
+  <app-table [users]="users" [form]="form" (saveVal)="onEdit($event)" [onSave]="onSave"></app-table>
+</div>

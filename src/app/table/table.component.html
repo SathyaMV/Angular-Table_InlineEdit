@@ -1,0 +1,98 @@
+<div class="container-fluid p-5 hide">
+    <div class="row">
+        <div class="col">
+            <div class="card mt-3">
+                <table class="table-bordered">
+                    <thead class="text-center text-white bg-dark">
+                        <tr>
+                            <th>S.no</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>D O B</th>
+                            <th>Gender</th>
+                            <th>Status</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr *ngFor="let user of users; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                                <div *ngIf="user.isMod">
+                                    <input type="text"  [(ngModel)]="user.name" class="form-control" name="name">
+                                </div>
+                                <div *ngIf="!user.isMod">
+                                    {{user.name}}
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="user.isMod">
+                                    <input type="email"  [(ngModel)]="user.email" class="form-control" name="email">
+                                </div>
+                                <div *ngIf="!user.isMod">
+                                    {{user.email}}
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="user.isMod">
+                                    <input type="number"  [(ngModel)]="user.mobile" class="form-control" name="mobile">
+                                </div>
+                                <div *ngIf="!user.isMod">
+                                    {{user.mobile}}
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="user.isMod">
+                                    <input type="date"  [(ngModel)]="user.dob" class="form-control" name="dob">
+                                </div>
+                                <div *ngIf="!user.isMod">
+                                    {{user.dob}}
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="user.isMod" class="d-flex align-items-center">
+                                    <input type="radio" [(ngModel)]="user.gender" class="m-1" name="gender" value="Male"> Male
+                                    <input type="radio" [(ngModel)]="user.gender" class="m-1" name="gender" value="Female"> Female
+                                    <input type="radio" [(ngModel)]="user.gender" class="m-1" name="gender" value="Others"> Others
+                                </div>
+                                <div *ngIf="!user.isMod">
+                                    {{user.gender}}
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="user.isMod">
+                                    <select name="status" [(ngModel)]="user.status" class="form-control">
+                                        <option *ngFor="let statusData of maritalData" [value]="statusData.value">{{ statusData.name }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="!user.isMod">
+                                    {{user.status}}
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="user.isMod">
+                                    <input name="address" class="form-control" [(ngModel)]="user.address" >
+                                </div>
+                                <div *ngIf="!user.isMod">
+                                    {{user.address}}
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="!user.isMod" >
+                                    <button class="btn btn-primary m-1" (click)="onEdit(user.id, user)">Edit</button>
+                                    <button class="btn btn-primary m-1" (click)="onDelete(user.id)">Delete</button>
+                                </div>
+                                <div *ngIf="user.isMod" class="d-flex">
+                                    <button type="submit" class="btn btn-primary m-1" (click)="onUpdate(user)">Update</button>
+                                    <button type="submit"  class="btn btn-primary m-1" (click)="onCancel(user)">Cancel</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
